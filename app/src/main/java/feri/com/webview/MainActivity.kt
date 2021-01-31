@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.WindowManager
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import im.delight.android.webview.AdvancedWebView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -49,11 +50,11 @@ class MainActivity : AppCompatActivity() , AdvancedWebView.Listener{
     }
 
     override fun onBackPressed() {
-        if (!mWebView.onBackPressed()) {
-            return
-        }
-        // ...
-        super.onBackPressed()
+        val alertDialog=AlertDialog.Builder(this)
+        alertDialog.setMessage("Anda yakin ingin menutup aplikasi?")
+        alertDialog.setNegativeButton("Tidak",{dialogInterface, i ->  dialogInterface.dismiss()})
+        alertDialog.setPositiveButton("Ya",{dialogInterface, i -> super.onBackPressed() })
+        alertDialog.show()
     }
 
     override fun onPageStarted(url: String?, favicon: Bitmap?) {}
